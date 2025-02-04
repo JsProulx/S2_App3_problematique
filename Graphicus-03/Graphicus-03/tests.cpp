@@ -340,7 +340,7 @@ void Tests::testDoubleCapacite()
 {
    cout<<endl<<" ## ---------- SECTION VECTEUR ---------- ## "<<endl<<endl;
    cout<<endl<<" ##  TEST DOUBLE CAPACITE ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();
    cout<<"--> vecteur cree de capacite "<<vect1 -> getCapacite() << " et taille "<< vect1 -> getTaille()<<endl;
    vect1 -> doubleCapacite();
    cout<<"--> doublons la capacite 1x. Nouvelle capacite:"<<vect1 -> getCapacite()<<endl;
@@ -351,7 +351,7 @@ void Tests::testDoubleCapacite()
    delete vect1;
 }
 
-Vecteur* Tests::remplirVecteur(Vecteur* vect)
+Vecteur<Couche>* Tests::remplirVecteur(Vecteur<Couche>* vect)
 {
    
    Couche* couche1= new Couche();
@@ -371,11 +371,11 @@ Vecteur* Tests::remplirVecteur(Vecteur* vect)
    Couche* couche5= new Couche();
    
    //on ajoute les couche au vecteur
-   vect->ajoutCouche(couche1);
-   vect->ajoutCouche(couche2);
-   vect->ajoutCouche(couche3);
-   vect->ajoutCouche(couche4);
-   vect->ajoutCouche(couche5);
+   vect->ajout(couche1);
+   vect->ajout(couche2);
+   vect->ajout(couche3);
+   vect->ajout(couche4);
+   vect->ajout(couche5);
    
    return vect;
 }
@@ -383,7 +383,7 @@ Vecteur* Tests::remplirVecteur(Vecteur* vect)
 void Tests::testAjoutCouche()
 {
    cout<<endl<<" ##  TEST AJOUT COUCHE ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();	//cree un vecteur
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();	//cree un vecteur
 
    //on cree des couches et on les rempli de formes
    cout<<"--> Creation d'un Vecteur rempli de couche differentes"<<endl;
@@ -396,7 +396,7 @@ void Tests::testAjoutCouche()
 void Tests::testVideVecteur()
 {
    cout<<endl<<" ##  TEST VIDER VECTEUR ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();
    cout<<"--> Creation d'un Vecteur rempli "<<endl;
    vect1 = remplirVecteur(vect1);
    vect1 -> afficher(cout);
@@ -414,15 +414,15 @@ void Tests::testVideVecteur()
 void Tests::testGetCouche()
 {
    cout<<endl<<" ##  TEST GET COUCHE ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();
    cout<<"--> Creation d'un Vecteur rempli "<<endl;
    vect1 = remplirVecteur(vect1);
    vect1 -> afficher(cout);
 
    //on va prendre la couche 2 et 3
    cout<<"--> Get de la couche index 2 et 3 "<<endl;
-   Couche* couche2 = vect1->getCouche(2);
-   Couche* couche3 = vect1->getCouche(3);
+   Couche* couche2 = vect1->get(2);
+   Couche* couche3 = vect1->get(3);
 
    cout<<endl;
 
@@ -436,7 +436,7 @@ void Tests::testGetCouche()
 
    //on essai de get a un index invalide
    cout<<"--> Get d'une couche a un index invalide "<<endl;
-   Couche* couche_test = vect1->getCouche(8);
+   Couche* couche_test = vect1->get(8);
    if (couche_test!=nullptr)
     couche_test->afficher(cout);
    else
@@ -448,20 +448,20 @@ void Tests::testGetCouche()
 void Tests::retirerCouche()
 {
 cout<<endl<<" ##  TEST RETIRER COUCHE ## "<<endl<<endl;
-  Vecteur* vect1 = new Vecteur();
+  Vecteur<Couche>* vect1 = new Vecteur<Couche>();
   vect1 = remplirVecteur(vect1);
   
   cout<<"--> Retrait de la couche 2 "<<endl;
-  vect1->retirerCouche(2);
+  vect1->retirer(2);
   vect1->afficher(cout);
   
   cout<<"--> Retrait de couches a des index invalides "<<endl;
-  vect1->retirerCouche(-1);
-  vect1->retirerCouche(69);
+  vect1->retirer(-1);
+  vect1->retirer(69);
   
   cout<<"--> Retrait de la 1ere couche 2x "<<endl;
-  vect1->retirerCouche(0);
-  vect1->retirerCouche(0);
+  vect1->retirer(0);
+  vect1->retirer(0);
   vect1->afficher(cout);
   
   delete vect1;

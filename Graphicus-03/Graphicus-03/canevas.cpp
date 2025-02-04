@@ -12,7 +12,7 @@
 //constructeur
 Canevas::Canevas()
 {
-  canevas = new Vecteur();
+  canevas = new Vecteur<Couche>();
   
 }
 //Destructeur
@@ -24,13 +24,13 @@ Canevas::~Canevas()
 bool Canevas::ajouterCouche()
 {
    Couche* nouvelleCouche = new Couche();  
-   canevas->ajoutCouche(nouvelleCouche);
+   canevas->ajout(nouvelleCouche);
    return true;
 }
 
 bool Canevas::retirerCouche(int index)
 {
-   canevas->retirerCouche(index);
+   canevas->retirer(index);
    return true;
 }
 
@@ -43,7 +43,7 @@ bool Canevas::reinitialiser()
 
 bool Canevas::reinitialiserCouche(int index)
 {
-   canevas->getCouche(index)-> reinitialiser();
+   canevas->get(index)-> reinitialiser();
    
    return true;
 }
@@ -59,10 +59,10 @@ bool Canevas::activerCouche(int index)
    for(int i=0;i<canevas->getTaille();i++)
    {
      if(index == i)
-	canevas->getCouche(i)->changerEtat(ACTIVE);
+	canevas->get(i)->changerEtat(ACTIVE);
      else
-       if(canevas->getCouche(i)->getEtat() == ACTIVE)
-         canevas->getCouche(i)->changerEtat(INACTIVE);
+       if(canevas->get(i)->getEtat() == ACTIVE)
+         canevas->get(i)->changerEtat(INACTIVE);
    }
    
    return true;
@@ -76,7 +76,7 @@ bool Canevas::desactiverCouche(int index)
      return false;
    }
    
-   canevas->getCouche(index)->changerEtat(INACTIVE);
+   canevas->get(index)->changerEtat(INACTIVE);
    return true;
 }
 
@@ -88,9 +88,9 @@ bool Canevas::ajouterForme(Forme* p_forme)
     
    for(int i=0;i<canevas->getTaille();i++)
    {
-     if(canevas->getCouche(i)->getEtat() == ACTIVE)
+     if(canevas->get(i)->getEtat() == ACTIVE)
      {
-       canevas->getCouche(i)->ajoutForme(p_forme);
+       canevas->get(i)->ajoutForme(p_forme);
        return true;
      }
    }
@@ -104,14 +104,14 @@ bool Canevas::retirerForme(int index)
    
    for(int i=0;i<canevas->getTaille();i++)
    {
-     if(canevas->getCouche(i)->getEtat() == ACTIVE)
+     if(canevas->get(i)->getEtat() == ACTIVE)
      {
-        if(index>canevas->getCouche(i)->getTaille()-1 || index<0)
+        if(index>canevas->get(i)->getTaille()-1 || index<0)
         {
           cout<<"index forme ACTIVE errone"<<endl;
           return false;
         }
-       canevas->getCouche(i)->retirerForme(index);            
+       canevas->get(i)->retirerForme(index);            
        return true;                                   //peut retourner true meme si l'index specifie est null et n'a donc rien enleve.  ex index 8 retourne true meme s'il n'y a pas d'index 8
      }
    }
@@ -123,7 +123,7 @@ double Canevas::aire()
    double aireCanevas = 0;
    
    for(int i=0;i<canevas->getTaille();i++)
-     aireCanevas += canevas->getCouche(i)->aireTotale();     //fait le total des aires des couches du canevas
+     aireCanevas += canevas->get(i)->aireTotale();     //fait le total des aires des couches du canevas
    
    return aireCanevas;
 }
@@ -132,9 +132,9 @@ bool Canevas::translater(int deltaX, int deltaY)
 {
    for(int i=0;i<canevas->getTaille();i++)
    { 
-     if(canevas->getCouche(i)->getEtat() == ACTIVE)
+     if(canevas->get(i)->getEtat() == ACTIVE)
      {
-       canevas->getCouche(i)->translater(deltaX,deltaY);     //translate la couche active
+       canevas->get(i)->translater(deltaX,deltaY);     //translate la couche active
        return true;
      }
     

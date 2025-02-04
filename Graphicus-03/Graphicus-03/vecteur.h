@@ -17,28 +17,164 @@
 #include <iostream>
 #include "couche.h"
 
-
+template <typename T>
 class Vecteur
 {
   public:
   
-    Vecteur();
+      Vecteur();
     virtual ~Vecteur();
     int getCapacite();
     int getTaille();
     void doubleCapacite();
     void viderVecteur();
     bool estVide();
-    bool ajoutCouche(Couche*);
-    Couche* retirerCouche(int);
-    Couche* getCouche(int);
+
+    bool ajout(T*);
+    T* retirer(int);
+    T* get(int);
     void afficher(ostream& os);
     
   private:
   int taille;
   int capacite;
-  Couche** vecteur;
+  T** vecteur;
   
 };
+
+
+template <typename T>
+Vecteur<T>::Vecteur()
+{
+    //capacite = 1;
+    capacite = 2;		//pour la validation, remettre a 1 apres
+    taille = 0;
+    vecteur = new Couche * [capacite];
+    vecteur[0] = nullptr;
+}
+
+//destructeur
+template <typename T>
+Vecteur<T>::~Vecteur()
+{
+    for (int i = 0;i < capacite;i++)
+        delete vecteur[i];
+
+    delete[] vecteur;
+}
+
+//vide le vecteur et conserve sa capacite
+template <typename T>
+void Vecteur<T>::viderVecteur()
+{
+    for (int i = 0; i < capacite; i++)
+    {
+        delete vecteur[i];
+        vecteur[i] = nullptr;
+    }
+    taille = 0;
+}
+
+template <typename T>
+int Vecteur<T>::getCapacite()
+{
+    return capacite;
+}
+
+template <typename T>
+int Vecteur<T>::getTaille()
+{
+    return taille;
+}
+
+template <typename T>
+bool Vecteur<T>::estVide()
+{
+    int c = getTaille();
+    if (c > 0)
+        return false;
+    return true;
+}
+
+template <typename T>
+void Vecteur<T>::doubleCapacite()
+{
+    capacite = 2 * capacite;
+    Couche** buffer = new Couche * [capacite];	//cree un tableau de pointeur de couche tampon
+
+    for (int i = 0;i < capacite / 2;i++) 		//on copie nos valeur dans le tampon
+        buffer[i] = vecteur[i];
+
+    for (int i = capacite / 2;i < capacite;i++)   //met des pointeurs null dans le reste du tableau tampon
+        buffer[i] = nullptr;
+
+    delete[] vecteur;		//libere l'ancien tableau de pointeur
+    vecteur = buffer;
+}
+
+template <typename T>
+bool Vecteur<T>::ajout(T* nouvelleCouche)
+{
+    if (taille == capacite)
+        doubleCapacite();
+
+    vecteur[taille] = nouvelleCouche;
+    taille++;
+
+    return true;
+}
+
+//Methodes specifique a l'app1
+
+//retire un element du tableau
+//return un pointeur vers l'element retirer
+template <typename T>
+T* Vecteur<T>::retirer(int index)
+{
+    if (index >= capacite || index < 0)
+    {
+        cout << "index invalide" << endl;
+        return nullptr;
+    }
+    Couche* couche_a_enlever = vecteur[index];
+
+    for (int i = index; i < capacite - 1; i++)	//pour decaller les elements qui suivent celui qui a ete retirer
+    {
+        Couche* buffer = vecteur[i + 1];        //buffer
+        vecteur[i + 1] = nullptr;
+        vecteur[i] = buffer;
+    }
+    if (taille > 0)
+        taille--;
+
+    return couche_a_enlever;
+}
+
+//return un pointeur vers l'element en index
+template <typename T>
+T* Vecteur<T>::get(int index)
+{
+    if (index >= capacite || index < 0)
+    {
+        cout << "index invalide" << endl;
+        return nullptr;
+    }
+
+    return vecteur[index];
+}
+
+template <typename T>
+void Vecteur<T>::afficher(ostream& os)
+{
+    if (taille == 0)
+        cout << "----- aucune couche -----" << endl;
+
+    for (int i = 0; i < taille; i++)
+    {
+        cout << "----- Couche " << i << " -----" << endl;
+        vecteur[i]->afficher(os);
+    }
+
+}
 
 #endif

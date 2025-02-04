@@ -51,7 +51,7 @@ public:
    void testDoubleCapacite();
    void testVideVecteur();
    void testAjoutCouche();
-   Vecteur* remplirVecteur(Vecteur*);
+   Vecteur<Couche>* remplirVecteur(Vecteur<Couche>*);
    void testGetCouche();
    void retirerCouche();
    

@@ -38,7 +38,7 @@ public:
    void afficher(ostream & s);
 
 private:   
-   Vecteur* canevas;
+   Vecteur<Couche>* canevas;
    
 };
 
