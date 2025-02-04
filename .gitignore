@@ -2,6 +2,18 @@
 .vs/
 *.user
 *.suo
+*.VC.db
+*.VC.opendb
+
+# Fichiers de build temporaires
+Debug/
+Release/
+ipch/
+*.obj
+*.exe
+*.pdb
+*.cache
+*.log
 
 # Build
 bin/
