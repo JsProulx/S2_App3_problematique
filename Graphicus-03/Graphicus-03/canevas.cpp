@@ -13,7 +13,6 @@
 Canevas::Canevas()
 {
   canevas = new Vecteur<Couche>();
-  
 }
 //Destructeur
 Canevas::~Canevas()

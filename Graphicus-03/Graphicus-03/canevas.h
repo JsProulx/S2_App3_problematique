@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include "vecteur.h"
+#include "couche.h"
 
 class Canevas
 {

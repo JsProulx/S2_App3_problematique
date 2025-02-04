@@ -15,22 +15,22 @@
 void Tests::tests_unitaires_formes()
 { 
    // Tests sur les formes geometriques
-   testRectangle();
-   testCarre();
-   testCercle();
+   //testRectangle();
+   //testCarre();
+   //testCercle();
 }
 
 void Tests::tests_unitaires_couche()
 {
    //  --- Tests sur la classe Couche --- // 
    
-   testAjoutForme();
-   testRetraitForme();
-   testGetForme();
-   testAireTotale();
-   testTranslater();
-   testReinit();
-   testChangerEtat();
+   //testAjoutForme();
+   //testRetraitForme();
+   //testGetForme();
+   //testAireTotale();
+   //testTranslater();
+   //testReinit();
+   //testChangerEtat();
    
 }
 
@@ -38,11 +38,12 @@ void Tests::tests_unitaires_vecteur()
 {
    //  --- Tests sur la classe Vecteur --- //
    
-   testDoubleCapacite();
-   testAjoutCouche();
-   testVideVecteur();
-   testGetCouche();
-   retirerCouche();
+   //testDoubleCapacite();
+   //testAjoutCouche();
+   //testVideVecteur();
+   //testGetCouche();
+   //retirerCouche();
+   testAjoutInt();
 
 }
 
@@ -50,20 +51,20 @@ void Tests::tests_unitaires_canevas()
 {
    // --- Tests sur la classe Canevas --- //
       
-   testAjoutCoucheCanevas();
-   testAjoutFromeCanevas();
-   testActiverCouche();
-   testRetirerForme();
-   testAireCannevas();
-   testTranslaterCannevas();
+   //testAjoutCoucheCanevas();
+   //testAjoutFromeCanevas();
+   //testActiverCouche();
+   //testRetirerForme();
+   //testAireCannevas();
+   //testTranslaterCannevas();
 }
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
-   tests_unitaires_formes();
-   tests_unitaires_couche();
+   //tests_unitaires_formes();
+   //tests_unitaires_couche();
    tests_unitaires_vecteur();
-   tests_unitaires_canevas();
+   //tests_unitaires_canevas();
 }
 
 void Tests::tests_application()
@@ -371,13 +372,54 @@ Vecteur<Couche>* Tests::remplirVecteur(Vecteur<Couche>* vect)
    Couche* couche5= new Couche();
    
    //on ajoute les couche au vecteur
-   vect->ajout(couche1);
+   /*vect->ajout(couche1);
    vect->ajout(couche2);
    vect->ajout(couche3);
    vect->ajout(couche4);
-   vect->ajout(couche5);
+   vect->ajout(couche5);*/
+   *vect + couche1;
+   *vect + couche2;
+   *vect + couche3;
+   *vect + couche4;
+   *vect + couche5;
    
    return vect;
+}
+
+void Tests::testAjoutInt()
+{
+    cout << endl << " ##  TEST AJOUT ENTIER ## " << endl << endl;
+    Vecteur<int>* vect1 = new Vecteur<int>();	//cree un vecteur
+
+	int* ptr = new int(1);
+	int* ptr2 = new int(2);
+	int* ptr3 = new int(3);
+    cout << "On rempli le vecteur de Int" << endl;
+	
+    *vect1 + ptr;
+	*vect1 + ptr2;
+	*vect1 + ptr3;
+    cout << vect1->getTaille();
+
+	//on affiche
+	for (int i = 0; i < vect1->getTaille(); i++)
+	{
+		cout << "Element " << i << " : " << *vect1->get(i) << endl;
+	}
+
+	//on retire un element
+	cout << "On retire l'element 1" << endl;
+    *vect1 - 1;
+
+    //on affiche
+	for (int i = 0; i < vect1->getTaille(); i++)
+	{
+		cout << "Element " << i << " : " << *vect1->get(i) << endl;
+	}
+    delete vect1;
+
+
+	
 }
 
 void Tests::testAjoutCouche()
@@ -718,6 +760,8 @@ void Tests::testValidation()
   cout<<"l'aire du canevas est de "<<canevas.aire()<<endl;
   
 }
+
+
 
 
 

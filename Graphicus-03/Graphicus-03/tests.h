@@ -54,6 +54,7 @@ public:
    Vecteur<Couche>* remplirVecteur(Vecteur<Couche>*);
    void testGetCouche();
    void retirerCouche();
+   void testAjoutInt();
    
    //pour le canevas
    void testAjoutCoucheCanevas();

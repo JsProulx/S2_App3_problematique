@@ -15,14 +15,15 @@
 #define VECTEUR_H
 
 #include <iostream>
-#include "couche.h"
+using namespace std;
+//#include "couche.h"
 
 template <typename T>
 class Vecteur
 {
   public:
   
-      Vecteur();
+     Vecteur();
     virtual ~Vecteur();
     int getCapacite();
     int getTaille();
@@ -33,7 +34,16 @@ class Vecteur
     bool ajout(T*);
     T* retirer(int);
     T* get(int);
-    void afficher(ostream& os);
+    void afficher(std::ostream& os);
+
+    bool operator + (T* Ajout)
+    {
+		return ajout(Ajout);
+    }
+	T* operator - (int index)
+	{
+		return retirer(index);
+	}
     
   private:
   int taille;
@@ -46,10 +56,9 @@ class Vecteur
 template <typename T>
 Vecteur<T>::Vecteur()
 {
-    //capacite = 1;
-    capacite = 2;		//pour la validation, remettre a 1 apres
+    capacite = 1;
     taille = 0;
-    vecteur = new Couche * [capacite];
+    vecteur = new T * [capacite];
     vecteur[0] = nullptr;
 }
 
@@ -57,7 +66,7 @@ Vecteur<T>::Vecteur()
 template <typename T>
 Vecteur<T>::~Vecteur()
 {
-    for (int i = 0;i < capacite;i++)
+	for (int i = 0;i < taille;i++)
         delete vecteur[i];
 
     delete[] vecteur;
@@ -100,7 +109,7 @@ template <typename T>
 void Vecteur<T>::doubleCapacite()
 {
     capacite = 2 * capacite;
-    Couche** buffer = new Couche * [capacite];	//cree un tableau de pointeur de couche tampon
+    T** buffer = new T * [capacite];	//cree un tableau de pointeur de couche tampon
 
     for (int i = 0;i < capacite / 2;i++) 		//on copie nos valeur dans le tampon
         buffer[i] = vecteur[i];
@@ -131,23 +140,23 @@ bool Vecteur<T>::ajout(T* nouvelleCouche)
 template <typename T>
 T* Vecteur<T>::retirer(int index)
 {
-    if (index >= capacite || index < 0)
+    if (index >= taille || index < 0)
     {
-        cout << "index invalide" << endl;
+        std::cout << "index invalide" << endl;
         return nullptr;
     }
-    Couche* couche_a_enlever = vecteur[index];
+    T* element_a_enlever = vecteur[index];
 
     for (int i = index; i < capacite - 1; i++)	//pour decaller les elements qui suivent celui qui a ete retirer
     {
-        Couche* buffer = vecteur[i + 1];        //buffer
+        T* buffer = vecteur[i + 1];        //buffer
         vecteur[i + 1] = nullptr;
         vecteur[i] = buffer;
     }
     if (taille > 0)
         taille--;
 
-    return couche_a_enlever;
+    return element_a_enlever;
 }
 
 //return un pointeur vers l'element en index
@@ -164,7 +173,7 @@ T* Vecteur<T>::get(int index)
 }
 
 template <typename T>
-void Vecteur<T>::afficher(ostream& os)
+void Vecteur<T>::afficher(std::ostream& os)
 {
     if (taille == 0)
         cout << "----- aucune couche -----" << endl;
