@@ -23,7 +23,8 @@ Canevas::~Canevas()
 bool Canevas::ajouterCouche()
 {
    Couche* nouvelleCouche = new Couche();  
-   canevas->ajout(nouvelleCouche);
+   //canevas->ajout(nouvelleCouche);
+   *canevas += nouvelleCouche;
    return true;
 }
 

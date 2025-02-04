@@ -35,12 +35,8 @@ bool Couche::ajoutForme(Forme* forme)
      cout<<"impossible de modifier, Couche n'est pas active"<<endl;
      return false; 
   }  
-  if(taille >= MAX_FORMES)
-  {
-    cout<<"impossible, couche remplie"<<endl;
-    return false; 
-  }
-  *formes + forme;
+
+  *formes += forme;
   taille++;
   return true;
 }
@@ -48,18 +44,18 @@ bool Couche::ajoutForme(Forme* forme)
 
 void Couche::afficher(ostream& os)        
 {
-   cout<<"Etat: ";
+   cout<<"L ";
    
     switch (etat) 
     {
       case INITIALISEE: 
-        os << "Initialisée"<<endl; 
+        os << "i"<<endl; 
         break;
       case ACTIVE: 
-        os << "Active"<<endl; 
+        os << "a"<<endl; 
         break;
       case INACTIVE: 
-        os << "Inactive"<<endl; 
+        os << "x"<<endl; 
         break;
     }
 
@@ -115,7 +111,7 @@ Forme* Couche::retirerForme(int index)
 //Prend en parametre l'index dans la couche (de 0 a 4)
 Forme* Couche::getForme(int index)
 {
-  if(index>MAX_FORMES || index<0)	//mauvais index
+  if(index> formes->getTaille() || index<0)	//mauvais index
      return nullptr;
      
   //Forme* formeVoulue = formes[index];

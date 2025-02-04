@@ -36,7 +36,7 @@ class Vecteur
     T* get(int);
     void afficher(std::ostream& os);
 
-    bool operator + (T* Ajout)
+    bool operator += (T* Ajout)
     {
 		return ajout(Ajout);
     }
@@ -44,12 +44,41 @@ class Vecteur
 	{
 		return retirer(index);
 	}
+    T* operator [] (int index)
+    {
+		return get(index);
+    }
+    void operator << (std::ostream& os)
+    {
+		afficher(os);
+    }
+    void operator >> (std::istream& is)
+    {
+        // a faire plus tard caliss
+
+    }
+    Vecteur& operator++()
+    {
+        if (indexCourrant < taille - 1)
+        {
+            indexCourrant++;
+        }
+        return *this;
+    }
+    Vecteur& operator--()
+    {
+        if (indexCourrant > 0)
+        {
+            indexCourrant--;
+        }
+        return *this;
+    }
     
   private:
   int taille;
   int capacite;
   T** vecteur;
-  
+  int indexCourrant;
 };
 
 
@@ -58,18 +87,19 @@ Vecteur<T>::Vecteur()
 {
     capacite = 1;
     taille = 0;
-    vecteur = new T * [capacite];
+    vecteur = new T* [capacite];
     vecteur[0] = nullptr;
+	indexCourrant = 0;
 }
 
 //destructeur
 template <typename T>
 Vecteur<T>::~Vecteur()
 {
-	for (int i = 0;i < taille;i++)
+	/*for (int i = 0;i < taille;i++)
         delete vecteur[i];
 
-    delete[] vecteur;
+    delete[] vecteur;*/
 }
 
 //vide le vecteur et conserve sa capacite
@@ -173,14 +203,14 @@ T* Vecteur<T>::get(int index)
 }
 
 template <typename T>
-void Vecteur<T>::afficher(std::ostream& os)
+void Vecteur<T>::afficher(ostream& os)
 {
     if (taille == 0)
         cout << "----- aucune couche -----" << endl;
 
     for (int i = 0; i < taille; i++)
     {
-        cout << "----- Couche " << i << " -----" << endl;
+        //cout << "----- Couche " << i << " -----" << endl;
         vecteur[i]->afficher(os);
     }
 

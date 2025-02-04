@@ -24,13 +24,13 @@ void Tests::tests_unitaires_couche()
 {
    //  --- Tests sur la classe Couche --- // 
    
-   //testAjoutForme();
-   //testRetraitForme();
-   //testGetForme();
-   //testAireTotale();
-   //testTranslater();
-   //testReinit();
-   //testChangerEtat();
+   testAjoutForme();
+   testRetraitForme();
+   testGetForme();
+   testAireTotale();
+   testTranslater();
+   testReinit();
+   testChangerEtat();
    
 }
 
@@ -43,7 +43,7 @@ void Tests::tests_unitaires_vecteur()
    //testVideVecteur();
    //testGetCouche();
    //retirerCouche();
-   testAjoutInt();
+   //testAjoutInt();
 
 }
 
@@ -61,10 +61,10 @@ void Tests::tests_unitaires_canevas()
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
-   //tests_unitaires_formes();
-   //tests_unitaires_couche();
+   tests_unitaires_formes();
+   tests_unitaires_couche();
    tests_unitaires_vecteur();
-   //tests_unitaires_canevas();
+   tests_unitaires_canevas();
 }
 
 void Tests::tests_application()
@@ -72,8 +72,8 @@ void Tests::tests_application()
    // Fait tous les tests applicatifs
    //tests_application_cas_01();
    //tests_application_cas_02();
-   //tests_unitaires();
-   testValidation();
+   tests_unitaires();
+   //testValidation();
    
 }
 
@@ -214,6 +214,7 @@ void Tests::testAjoutForme()
 
    //met les formes dans la nouvelle couche
    cout<<"--> Insersion de formes dans la couche"<<endl;
+   couche1->changerEtat(ACTIVE);
    couche1 -> ajoutForme(carre1);
    couche1 -> ajoutForme(cercle1);
 
@@ -377,11 +378,11 @@ Vecteur<Couche>* Tests::remplirVecteur(Vecteur<Couche>* vect)
    vect->ajout(couche3);
    vect->ajout(couche4);
    vect->ajout(couche5);*/
-   *vect + couche1;
-   *vect + couche2;
-   *vect + couche3;
-   *vect + couche4;
-   *vect + couche5;
+   *vect += couche1;
+   *vect += couche2;
+   *vect += couche3;
+   *vect += couche4;
+   *vect += couche5;
    
    return vect;
 }
@@ -396,9 +397,9 @@ void Tests::testAjoutInt()
 	int* ptr3 = new int(3);
     cout << "On rempli le vecteur de Int" << endl;
 	
-    *vect1 + ptr;
-	*vect1 + ptr2;
-	*vect1 + ptr3;
+    *vect1 += ptr;
+	*vect1 += ptr2;
+	*vect1 += ptr3;
     cout << vect1->getTaille();
 
 	//on affiche
