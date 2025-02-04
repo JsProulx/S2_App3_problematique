@@ -13,6 +13,7 @@ int main()
 {
 	//test pour faire un commit
 	//test de commit a vecteur
+	//asdasdas test de merge
 	Tests tests;
 	tests.tests_application();
 	return 0;
