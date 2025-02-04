@@ -9,7 +9,9 @@
 # Build
 bin/
 obj/
-Debug/# C++ objects and libs
+Debug/
+Release/
+x64/
 *.slo
 *.lo
 *.o
