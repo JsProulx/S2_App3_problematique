@@ -46,7 +46,7 @@ bool Couche::ajoutForme(Forme* forme)
 
 void Couche::afficher(ostream& os)        
 {
-   cout<<"L ";
+   os<<"L ";
    
     switch (etat) 
     {

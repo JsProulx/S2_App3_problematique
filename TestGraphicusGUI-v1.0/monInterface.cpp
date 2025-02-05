@@ -86,7 +86,7 @@ void MonInterface::ajouterCercle(int x, int y, int rayon)
 		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
 		{
 			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
-			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			//cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
 			break;
 		}
 	}
@@ -105,7 +105,7 @@ void MonInterface::ajouterRectangle(int x, int y, int long_x, int long_y)
 		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
 		{
 			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille()-1);
-			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			//cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
 			break;
 		}
 	}
@@ -124,15 +124,15 @@ void MonInterface::ajouterCarre(int x, int y, int cote)
 		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
 		{
 			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
-			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			//cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
 			break;
 		}
 	}
 
 	cout << endl << endl;
-	monCanevas->afficher(cout);
+	monCanevas->afficher(oss);
+	dessiner(oss.str().c_str());
 
-	//dessiner();
 }
 
 

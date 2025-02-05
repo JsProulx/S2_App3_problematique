@@ -17,6 +17,7 @@
 #include "carre.h"
 #include "cercle.h"
 #include "couche.h"
+#include <sstream>
 
 class MonInterface : public GraphicusGUI
 {
@@ -50,6 +51,7 @@ public:
 
 private:
 	Canevas* monCanevas;
+	ostringstream oss;
 
 };
 
