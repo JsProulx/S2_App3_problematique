@@ -23,6 +23,9 @@ class Couche
 {
 
 public:
+
+    Vecteur<Forme>* formes;
+
     Couche();
     bool ajoutForme(Forme*);
     void afficher(ostream& os);
@@ -36,11 +39,12 @@ public:
     EtatCouche getEtat();
     virtual ~Couche();
 	int getIndexCourrant();
+	bool setIndexCourrant(int index);
 
 private:
     int taille;
     EtatCouche etat;
-    Vecteur<Forme>* formes;
+    //Vecteur<Forme>* formes;
 
 };
 

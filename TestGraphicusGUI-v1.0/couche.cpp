@@ -176,5 +176,10 @@ int Couche::getIndexCourrant()
 	return formes->getIndexCourrant();
 }
 
+bool Couche::setIndexCourrant(int index)
+{
+    
+	return formes->setIndexCourrant(index);
+}
 
  

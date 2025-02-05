@@ -81,6 +81,16 @@ void MonInterface::ajouterCercle(int x, int y, int rayon)
 	Cercle* cercle = new Cercle(rayon, x, y);
 	monCanevas->ajouterForme(cercle);
 
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
+			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			break;
+		}
+	}
+
 	cout << endl << endl;
 	monCanevas->afficher(cout);
 }
@@ -90,6 +100,16 @@ void MonInterface::ajouterRectangle(int x, int y, int long_x, int long_y)
 	Rectangle* rectangle = new Rectangle(long_x, long_y, x, y);
 	monCanevas->ajouterForme(rectangle);
 
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille()-1);
+			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			break;
+		}
+	}
+
 	cout << endl << endl;
 	monCanevas->afficher(cout);
 }
@@ -98,6 +118,16 @@ void MonInterface::ajouterCarre(int x, int y, int cote)
 {
 	Carre* carre = new Carre(cote, x, y);
 	monCanevas->ajouterForme(carre);
+
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
+			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			break;
+		}
+	}
 
 	cout << endl << endl;
 	monCanevas->afficher(cout);
@@ -173,6 +203,7 @@ void MonInterface::coucheSuivante()
 void MonInterface::coucheDerniere()
 {
 	monCanevas->activerCouche(monCanevas->getTaille() - 1);
+
 	cout << endl << endl;
 	monCanevas->afficher(cout);
 }
@@ -184,8 +215,11 @@ void MonInterface::retirerForme()
 	{
 		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
 		{
-			monCanevas->getCouche(i)->retirerForme(monCanevas->getCouche(i)->getTaille() - 1);      // retire juste la derniere forme de la couche active et non la forme courrante
+			//cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
+			monCanevas->getCouche(i)->retirerForme(monCanevas->getCouche(i)->getIndexCourrant());      
+			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
 
+			cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
 			break;
 		}
 	}
@@ -196,22 +230,57 @@ void MonInterface::retirerForme()
 
 void MonInterface::formePremiere()
 {
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			monCanevas->getCouche(i)->setIndexCourrant(0);
 
+			break;
+		}
+	}
 }
 
 void MonInterface::formePrecedente()
 {
 
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			if (monCanevas->getCouche(i)->getIndexCourrant() > 0)
+				monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getIndexCourrant() -1);
+
+			break;
+		}
+	}
 }
 
 void MonInterface::formeSuivante()
 {
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			if (monCanevas->getCouche(i)->getIndexCourrant() < monCanevas->getCouche(i)->getTaille() -1)
+				monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getIndexCourrant() + 1);
 
+			break;
+		}
+	}
 }
 
 void MonInterface::formeDerniere()
 {
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			monCanevas->getCouche(i)->formes->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
 
+			break;
+		}
+	}
 }
 
 

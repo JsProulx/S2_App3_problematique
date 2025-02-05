@@ -19,6 +19,9 @@
 class Canevas
 {
 public:
+
+	Vecteur<Couche>* canevas;
+
    Canevas();
    ~Canevas();
    
@@ -39,9 +42,11 @@ public:
    void afficher(ostream & s);
    int getTaille();	
    Couche* getCouche(int index);
+   //ostream& operator << (ostream& os)
+   
 
 private:   
-   Vecteur<Couche>* canevas;
+   //Vecteur<Couche>* canevas;
    
 };
 

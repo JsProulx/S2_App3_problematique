@@ -93,7 +93,7 @@ bool Canevas::ajouterForme(Forme* p_forme)
      if(canevas->get(i)->getEtat() == ACTIVE)
      {
        canevas->get(i)->ajoutForme(p_forme);
-       //canevas++;
+	   canevas->setIndexCourrant(canevas->get(i)->getTaille() - 1);
        return true;
      }
    }

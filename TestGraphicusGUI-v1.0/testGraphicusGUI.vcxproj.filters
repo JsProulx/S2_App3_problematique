@@ -51,9 +51,6 @@
     <ClCompile Include="canevas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vecteur.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="forme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

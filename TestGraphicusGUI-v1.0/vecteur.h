@@ -37,6 +37,7 @@ class Vecteur
     T* get(int);
     void afficher(std::ostream& os);
     int getIndexCourrant();
+    int setIndexCourrant(int index);
 
     bool operator += (T* Ajout)
     {
@@ -50,11 +51,11 @@ class Vecteur
     {
 		return get(index);
     }
-    void operator << (std::ostream& os)
+    void operator << (ostream& os)
     {
 		afficher(os);
     }
-    void operator >> (std::istream& is)
+    void operator >> (istream& is)
     {
         // a faire plus tard caliss
 
@@ -222,6 +223,26 @@ template <typename T>
 int Vecteur<T>::getIndexCourrant()
 {
 	return indexCourrant;
+}
+
+template <typename T>
+int Vecteur<T>::setIndexCourrant(int index)
+{
+	//cout << "index: " << index << endl;
+	//cout << "taille: " << taille << endl;
+
+	if (index < taille && index >= 0)
+	{
+		//cout << "taille: " << taille << endl;
+		indexCourrant = index;
+		return indexCourrant;
+	}
+	else
+	{
+		//cout << "index invalide .........." << endl;   //jsp pk ca se fait appeler aussi souvent
+		return -1;
+	}
+    return 1;
 }
 
 #endif
