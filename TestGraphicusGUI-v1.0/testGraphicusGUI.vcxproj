@@ -57,11 +57,11 @@
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Siméon\Downloads\testgraphicusgui-v1.0 (1)\TestGraphicusGUI-v1.0\GraphicusGUI</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Siméon\Downloads\testgraphicusgui-v1.0 (1)\TestGraphicusGUI-v1.0\GraphicusGUI;C:\Users\simon\Documents\Ecole\S2\S2_App3_problematique\Graphicus-03\GraphicusGUI</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;../GraphicusGUI;C:\Qt\6.7.3\msvc2022_64\include;C:\Qt\6.7.3\msvc2022_64\include\QtWidgets;C:\Qt\6.7.3\msvc2022_64\include\QtGui;C:\Qt\6.7.3\msvc2022_64\include\QtCore;debug;C:\VulkanSDK\1.3.296.0\include;C:\Qt\6.7.3\msvc2022_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories);C:\Users\Siméon\Downloads\testgraphicusgui-v1.0 (1)\TestGraphicusGUI-v1.0\GraphicusGUI</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../GraphicusGUI;C:\Qt\6.7.3\msvc2022_64\include;C:\Qt\6.7.3\msvc2022_64\include\QtWidgets;C:\Qt\6.7.3\msvc2022_64\include\QtGui;C:\Qt\6.7.3\msvc2022_64\include\QtCore;debug;C:\VulkanSDK\1.3.296.0\include;C:\Qt\6.7.3\msvc2022_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories);C:\Users\Siméon\Downloads\testgraphicusgui-v1.0 (1)\TestGraphicusGUI-v1.0\GraphicusGUI;C:\Users\simon\Documents\Ecole\S2\S2_App3_problematique\Graphicus-03\GraphicusGUI</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
