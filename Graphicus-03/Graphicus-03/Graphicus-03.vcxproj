@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ReferencePath>$(VC_ReferencesPath_x64);C:\Users\Siméon\Documents\Ecole\GitHub\S2_App3_problematique\Graphicus-03</ReferencePath>
+    <ReferencePath>$(VC_ReferencesPath_x64);C:\Users\Siméon\Documents\Ecole\GitHub\S2_App3_problematique\Graphicus-03;C:\Users\Siméon\Documents\Ecole\GitHub\S2_App3_problematique\Graphicus-03\GraphicusGUI</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Siméon\Documents\Ecole\GitHub\S2_App3_problematique\Graphicus-03</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Siméon\Documents\Ecole\GitHub\S2_App3_problematique\Graphicus-03;C:\Users\Siméon\Documents\Ecole\GitHub\S2_App3_problematique\Graphicus-03\GraphicusGUI</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

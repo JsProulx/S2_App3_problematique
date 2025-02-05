@@ -24,13 +24,13 @@ void Tests::tests_unitaires_couche()
 {
    //  --- Tests sur la classe Couche --- // 
    
-   testAjoutForme();
-   testRetraitForme();
-   testGetForme();
-   testAireTotale();
-   testTranslater();
-   testReinit();
-   testChangerEtat();
+   //testAjoutForme();
+   //testRetraitForme();
+   //testGetForme();
+   //testAireTotale();
+   //testTranslater();
+   //testReinit();
+   //testChangerEtat();
    
 }
 
@@ -72,8 +72,8 @@ void Tests::tests_application()
    // Fait tous les tests applicatifs
    //tests_application_cas_01();
    //tests_application_cas_02();
-   tests_unitaires();
-   //testValidation();
+   //tests_unitaires();
+   testValidation();
    
 }
 
@@ -523,7 +523,7 @@ void Tests::testAjoutCoucheCanevas()
   Canevas canevas1;
   
   cout<<"--> Creation d'un canevas et ajout de 5 couches"<<endl;
-  for(int i=0;i<5;i++)
+  for(int i=0;i<10;i++)
     canevas1.ajouterCouche();
     
   canevas1.afficher(cout);
@@ -555,13 +555,19 @@ void Tests::testAjoutFromeCanevas()
   Forme* rect1 = new Rectangle(2,4,1,1);
   Forme* cercle1 = new Cercle(3);
   Forme* carre1 = new Carre();
+  Forme* carre2 = new Carre();
+  Forme* carre3 = new Carre();
+  Forme* carre4 = new Carre();
+  Forme* carre5 = new Carre();
+  Forme* carre6 = new Carre();
+  Forme* carre7 = new Carre();
   
   cout<<"--> Creation d'un canevas et ajout de 5 couches"<<endl;
-  for(int i=0;i<5;i++)         //fait 5 couches vides
+  for(int i=0;i<10;i++)         //fait 5 couches vides
     canevas1.ajouterCouche();
   
   cout<<"-->Activation de la couche 2 et ajout d'un rectangle: "<< endl;
-  canevas1.activerCouche(2);  //active la couche index 2 donc la 3e couche;
+  canevas1.activerCouche(9);  //active la couche index 2 donc la 3e couche;
   canevas1.ajouterForme(rect1);  //ajoute forme sur couche active (2)
   
   canevas1.afficher(cout);
@@ -570,7 +576,13 @@ void Tests::testAjoutFromeCanevas()
   canevas1.activerCouche(0);  //active la couche 0
   canevas1.ajouterForme(cercle1);  //ajoute 2 formes sur la couche 0
   canevas1.ajouterForme(carre1);
-  
+  canevas1.ajouterForme(carre2);
+  canevas1.ajouterForme(carre3);
+  canevas1.ajouterForme(carre4);
+  canevas1.ajouterForme(carre5);
+  canevas1.ajouterForme(carre6);
+  canevas1.ajouterForme(carre7);
+
   canevas1.afficher(cout);
   
 }
@@ -581,7 +593,7 @@ void Tests::testRetirerForme()
   Canevas canevas1;
   Forme* rect1 = new Rectangle(2,4,1,1);
   Forme* cercle1 = new Cercle(3);
-  Forme* carre1 = new Carre();
+
    
   for(int i=0;i<5;i++)         //fait 5 couches vides
     canevas1.ajouterCouche();
@@ -591,7 +603,7 @@ void Tests::testRetirerForme()
   
   canevas1.activerCouche(0);  //active la couche 0
   canevas1.ajouterForme(cercle1);  //ajoute 2 formes sur la couche 0
-  canevas1.ajouterForme(carre1);
+
   
   cout<<"-->couche cree avec formes suivantes:"<<endl;
   canevas1.afficher(cout);

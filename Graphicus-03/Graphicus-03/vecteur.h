@@ -15,6 +15,7 @@
 #define VECTEUR_H
 
 #include <iostream>
+
 using namespace std;
 //#include "couche.h"
 
