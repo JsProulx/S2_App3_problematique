@@ -12,12 +12,14 @@
 #include <sstream>
 #include "monInterface.h"
 
+
 using namespace std;
 
 MonInterface::MonInterface(const char* theName) : GraphicusGUI(theName)
 {
 	monCanevas = new Canevas();
 	reinitialiserCanevas();
+	
 	effacerInformations();
 }
 
@@ -25,31 +27,8 @@ void MonInterface::reinitialiserCanevas()
 {
 	monCanevas->reinitialiser();
 	effacer();
-	cout << endl << endl;
 	monCanevas->afficher(cout);
-	/*ostringstream os;
-	random_device r;
-	default_random_engine generator(r());
-	uniform_int_distribution<int> coor(0, 300), dim(20, 100);
-
-	// On s'amuse à générer aléatoirement un canevas en format texte à chaque
-	// fois que la commande de réinitialisation de canevas est choisie par l'usager.
-	os << "L x" << endl;
-	os << "R " << coor(generator) << " " << coor(generator) << " " << dim(generator) << " " << dim(generator) << endl;
-	os << "K " << coor(generator) << " " << coor(generator) << " " << dim(generator) << endl;
-	os << "L a" << endl;
-	os << "K " << coor(generator) << " " << coor(generator) << " " << dim(generator) << endl;
-	os << "C " << coor(generator) << " " << coor(generator) << " " << dim(generator) << endl;
-	os << "L x" << endl;
-	os << "R " << coor(generator) << " " << coor(generator) << " " << dim(generator) << " " << dim(generator) << endl;
-	os << "C " << coor(generator) << " " << coor(generator) << " " << dim(generator) << endl;
-	os << "L x" << endl;
-	os << "R " << coor(generator) << " " << coor(generator) << " " << dim(generator) << " " << dim(generator) << endl;
-	os << "K " << coor(generator) << " " << coor(generator) << " " << dim(generator) << endl;
-	os << "C " << coor(generator) << " " << coor(generator) << " " << dim(generator) << endl;
 	
-	// Ensuite, on dessine ce qui a été généré dans Graphicus
-	dessiner(os.str().c_str());*/
 }
 
 
@@ -68,72 +47,37 @@ void MonInterface::modePileChange(bool mode)
 	//l'ordre des couches est inverse si mode est vrai et est desinverser si mode est faux
 	if (mode)
 	{
-		/*cout << "Mode pile active" << endl;
-		Canevas* canevasInverse = new Canevas();
-		for (int i = 0; i < monCanevas->getTaille(); i++)
-		{
-			canevasInverse->ajouterCouche();
-			canevasInverse->activerCouche(i);
-			
-			for(int j = 0; j < monCanevas->getCouche(monCanevas->getTaille() - 1 - i)->getTaille() - 1;)
-			{
-				canevasInverse->ajouterForme(monCanevas->getCouche(j)->getForme(j));
-			}
-		}
-		//canevasInverse->afficher(cout);
-
-		delete monCanevas;
-		monCanevas = canevasInverse;*/
-		
-		cout << "Mode pile active" << endl;
 		Canevas* canevasInverser = new Canevas();
 		for (int i = monCanevas->getTaille() - 1; i >= 0; i--)
 		{
-			canevasInverser->ajouterCouche();
-			for (int j = monCanevas->getCouche(i)->getTaille() - 1; j >= 0; j--)
-			{
-				canevasInverser->activerCouche(canevasInverser->getTaille() - 1);
-				canevasInverser->ajouterForme(monCanevas->getCouche(i)->retirerForme(j));
+			canevasInverser->ajouterCouche(); 
+			canevasInverser->activerCouche(canevasInverser->getTaille() - 1); 
 
+			for (int j = 0; j < monCanevas->getCouche(i)->getTaille(); j++)
+			{
+				canevasInverser->ajouterForme(monCanevas->getCouche(i)->getForme(j));
 			}
 		}
+
 		delete monCanevas;
 		monCanevas = canevasInverser;
+		
 	}
 	else
 	{
-		cout << "Mode pile desactive" << endl;
 		Canevas* canevasNormal = new Canevas();
 		for (int i = monCanevas->getTaille() - 1; i >= 0; i--)
 		{
 			canevasNormal->ajouterCouche();
-			for (int j = monCanevas->getCouche(i)->getTaille() - 1; j >= 0; j--)
+			canevasNormal->activerCouche(canevasNormal->getTaille() - 1);
+
+			for (int j = 0; j < monCanevas->getCouche(i)->getTaille(); j++)
 			{
-				canevasNormal->activerCouche(canevasNormal->getTaille() - 1);
-				canevasNormal->ajouterForme(monCanevas->getCouche(i)->retirerForme(j));
-				
+				canevasNormal->ajouterForme(monCanevas->getCouche(i)->getForme(j));
 			}
 		}
 		delete monCanevas;
 		monCanevas = canevasNormal;
-
-		/*cout << "Mode pile desactive" << endl;
-		Canevas* canevasNormal = new Canevas();
-		for (int i = 0; i < monCanevas->getTaille(); i++)
-		{
-			canevasNormal->ajouterCouche();
-			canevasNormal->activerCouche(i);
-
-			//for (int j = monCanevas->getCouche(monCanevas->getTaille() - 1 - i)->getTaille() - 1;j >= 0; j--)
-			for (int j = 0; j < monCanevas->getCouche(monCanevas->getTaille() - 1 - i)->getTaille() - 1;)
-			{
-				canevasNormal->ajouterForme(monCanevas->getCouche(j)->getForme(j));
-			}
-		}
-		//canevasInverse->afficher(cout);
-
-		delete monCanevas;
-		monCanevas = canevasNormal;*/
 	}
 	afficherInterface();
 }
@@ -299,6 +243,7 @@ void MonInterface::formePremiere()
 			break;
 		}
 	}
+	afficherInterface();
 }
 
 void MonInterface::formePrecedente()
@@ -314,6 +259,7 @@ void MonInterface::formePrecedente()
 			break;
 		}
 	}
+	afficherInterface();
 }
 
 void MonInterface::formeSuivante()
@@ -328,6 +274,7 @@ void MonInterface::formeSuivante()
 			break;
 		}
 	}
+	afficherInterface();
 }
 
 void MonInterface::formeDerniere()
@@ -341,6 +288,7 @@ void MonInterface::formeDerniere()
 			break;
 		}
 	}
+	afficherInterface();
 }
 
 void MonInterface::afficherInterface()
@@ -356,6 +304,15 @@ void MonInterface::afficherInterface()
 void MonInterface::setInformation()
 {
 	info.nbCouches = monCanevas->getTaille();
+
+	for (int i = 0; i < 20; i++)
+		info.etatCouche[i] = ' ';
+
+	info.nbFormesCanevas = 0;
+	info.aireCanevas = 0;
+	info.coucheActive = -1;
+	info.nbFormesCouche = 0;
+	info.formeActive = -1;
 	
 	for (int i = 0;i < monCanevas->getTaille();i++)
 	{
@@ -376,7 +333,7 @@ void MonInterface::setInformation()
 			info.coucheActive = i;
 			info.nbFormesCouche = monCanevas->getCouche(i)->getTaille();
 			info.aireCouche = monCanevas->getCouche(i)->aireTotale();
-			info.coucheActive = monCanevas->getCouche(i)->getIndexCourrant();
+			info.formeActive = monCanevas->getCouche(i)->getIndexCourrant();
 
 			if (monCanevas->getCouche(i)->getTaille() == 0)
 			{
