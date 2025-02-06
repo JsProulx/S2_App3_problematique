@@ -65,15 +65,84 @@ bool MonInterface::sauvegarderFichier(const char* nomFichier)
 
 void MonInterface::modePileChange(bool mode)
 {
+	//l'ordre des couches est inverse si mode est vrai et est desinverser si mode est faux
+	if (mode)
+	{
+		/*cout << "Mode pile active" << endl;
+		Canevas* canevasInverse = new Canevas();
+		for (int i = 0; i < monCanevas->getTaille(); i++)
+		{
+			canevasInverse->ajouterCouche();
+			canevasInverse->activerCouche(i);
+			
+			for(int j = 0; j < monCanevas->getCouche(monCanevas->getTaille() - 1 - i)->getTaille() - 1;)
+			{
+				canevasInverse->ajouterForme(monCanevas->getCouche(j)->getForme(j));
+			}
+		}
+		//canevasInverse->afficher(cout);
 
+		delete monCanevas;
+		monCanevas = canevasInverse;*/
+		
+		cout << "Mode pile active" << endl;
+		Canevas* canevasInverser = new Canevas();
+		for (int i = monCanevas->getTaille() - 1; i >= 0; i--)
+		{
+			canevasInverser->ajouterCouche();
+			for (int j = monCanevas->getCouche(i)->getTaille() - 1; j >= 0; j--)
+			{
+				canevasInverser->activerCouche(canevasInverser->getTaille() - 1);
+				canevasInverser->ajouterForme(monCanevas->getCouche(i)->retirerForme(j));
+
+			}
+		}
+		delete monCanevas;
+		monCanevas = canevasInverser;
+	}
+	else
+	{
+		cout << "Mode pile desactive" << endl;
+		Canevas* canevasNormal = new Canevas();
+		for (int i = monCanevas->getTaille() - 1; i >= 0; i--)
+		{
+			canevasNormal->ajouterCouche();
+			for (int j = monCanevas->getCouche(i)->getTaille() - 1; j >= 0; j--)
+			{
+				canevasNormal->activerCouche(canevasNormal->getTaille() - 1);
+				canevasNormal->ajouterForme(monCanevas->getCouche(i)->retirerForme(j));
+				
+			}
+		}
+		delete monCanevas;
+		monCanevas = canevasNormal;
+
+		/*cout << "Mode pile desactive" << endl;
+		Canevas* canevasNormal = new Canevas();
+		for (int i = 0; i < monCanevas->getTaille(); i++)
+		{
+			canevasNormal->ajouterCouche();
+			canevasNormal->activerCouche(i);
+
+			//for (int j = monCanevas->getCouche(monCanevas->getTaille() - 1 - i)->getTaille() - 1;j >= 0; j--)
+			for (int j = 0; j < monCanevas->getCouche(monCanevas->getTaille() - 1 - i)->getTaille() - 1;)
+			{
+				canevasNormal->ajouterForme(monCanevas->getCouche(j)->getForme(j));
+			}
+		}
+		//canevasInverse->afficher(cout);
+
+		delete monCanevas;
+		monCanevas = canevasNormal;*/
+	}
+	afficherInterface();
 }
 
 void MonInterface::coucheTranslater(int deltaX, int deltaY)
 {
-	monCanevas->translater(deltaX, deltaY);	
+	monCanevas->translater(deltaX, deltaY);
 
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 void MonInterface::ajouterCercle(int x, int y, int rayon)
@@ -91,8 +160,7 @@ void MonInterface::ajouterCercle(int x, int y, int rayon)
 		}
 	}
 
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 void MonInterface::ajouterRectangle(int x, int y, int long_x, int long_y)
@@ -110,8 +178,7 @@ void MonInterface::ajouterRectangle(int x, int y, int long_x, int long_y)
 		}
 	}
 
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 void MonInterface::ajouterCarre(int x, int y, int cote)
@@ -129,10 +196,7 @@ void MonInterface::ajouterCarre(int x, int y, int cote)
 		}
 	}
 
-	cout << endl << endl;
-	monCanevas->afficher(oss);
-	dessiner(oss.str().c_str());
-
+	afficherInterface();
 }
 
 
@@ -140,8 +204,8 @@ void MonInterface::coucheAjouter()
 {
 
 	monCanevas->ajouterCouche();
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	
+	afficherInterface();
 }
 
 void MonInterface::coucheRetirer()
@@ -155,16 +219,16 @@ void MonInterface::coucheRetirer()
 		}
 	}
 	monCanevas->activerCouche(0);
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	
+	afficherInterface();
 }
 
 
 void MonInterface::couchePremiere()
 {
 	monCanevas->activerCouche(0);
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	
+	afficherInterface();
 
 }
 
@@ -180,8 +244,7 @@ void MonInterface::couchePrecedente()
 			break;
 		}
 	}
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 void MonInterface::coucheSuivante()
@@ -196,16 +259,14 @@ void MonInterface::coucheSuivante()
 			break;
 		}
 	}
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 void MonInterface::coucheDerniere()
 {
 	monCanevas->activerCouche(monCanevas->getTaille() - 1);
 
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 //retire la forme courrante de la couche active
@@ -224,8 +285,7 @@ void MonInterface::retirerForme()
 		}
 	}
 
-	cout << endl << endl;
-	monCanevas->afficher(cout);
+	afficherInterface();
 }
 
 void MonInterface::formePremiere()
@@ -276,11 +336,398 @@ void MonInterface::formeDerniere()
 	{
 		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
 		{
-			monCanevas->getCouche(i)->formes->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
+			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
 
 			break;
 		}
 	}
 }
 
+void MonInterface::afficherInterface()
+{
+	setInformation();
+	cout << endl << endl;
+	monCanevas->afficher(oss);
+	dessiner(oss.str().c_str());
+	cout << oss.str();
+	oss.str("");
+}
 
+void MonInterface::setInformation()
+{
+	info.nbCouches = monCanevas->getTaille();
+	
+	for (int i = 0;i < monCanevas->getTaille();i++)
+	{
+		info.nbFormesCanevas += monCanevas->getCouche(i)->getTaille();
+		info.aireCanevas += monCanevas->getCouche(i)->aireTotale();
+		
+		if(monCanevas->getCouche(i)->getEtat() == INITIALISEE)
+			info.etatCouche[i] = 'i';
+		else if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+			info.etatCouche[i] = 'a';
+		else if (monCanevas->getCouche(i)->getEtat() == INACTIVE)
+			info.etatCouche[i] = 'x';
+
+
+
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			info.coucheActive = i;
+			info.nbFormesCouche = monCanevas->getCouche(i)->getTaille();
+			info.aireCouche = monCanevas->getCouche(i)->aireTotale();
+			info.coucheActive = monCanevas->getCouche(i)->getIndexCourrant();
+
+			if (monCanevas->getCouche(i)->getTaille() == 0)
+			{
+				info.coordX = 0;
+				info.coordY = 0;
+				info.aireForme = 0;
+			}
+			else
+			{
+				info.coordX = monCanevas->getCouche(i)->getForme(monCanevas->getCouche(i)->getIndexCourrant())->getAncrage().x;
+				info.coordY = monCanevas->getCouche(i)->getForme(monCanevas->getCouche(i)->getIndexCourrant())->getAncrage().y;
+				info.aireForme = monCanevas->getCouche(i)->getForme(monCanevas->getCouche(i)->getIndexCourrant())->aire();
+			}
+		}
+	}
+
+	setInformations(info);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//nerd

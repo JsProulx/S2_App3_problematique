@@ -20,7 +20,7 @@ class Canevas
 {
 public:
 
-	Vecteur<Couche>* canevas;
+	//Vecteur<Couche>* canevas;
 
    Canevas();
    ~Canevas();
@@ -46,7 +46,7 @@ public:
    
 
 private:   
-   //Vecteur<Couche>* canevas;
+   Vecteur<Couche>* canevas;
    
 };
 

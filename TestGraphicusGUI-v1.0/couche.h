@@ -24,7 +24,7 @@ class Couche
 
 public:
 
-    Vecteur<Forme>* formes;
+    //Vecteur<Forme>* formes;
 
     Couche();
     bool ajoutForme(Forme*);
@@ -44,7 +44,7 @@ public:
 private:
     int taille;
     EtatCouche etat;
-    //Vecteur<Forme>* formes;
+    Vecteur<Forme>* formes;
 
 };
 

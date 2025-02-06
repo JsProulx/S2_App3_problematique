@@ -49,9 +49,13 @@ public:
 	void formeSuivante() override;
 	void formeDerniere() override;
 
+	void afficherInterface();
+	void setInformation();
+
 private:
 	Canevas* monCanevas;
 	ostringstream oss;
+	Informations info;
 
 };
 
