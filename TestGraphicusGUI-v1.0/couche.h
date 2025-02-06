@@ -24,8 +24,6 @@ class Couche
 
 public:
 
-    Vecteur<Forme>* formes;
-
     Couche();
     bool ajoutForme(Forme*);
     void afficher(ostream& os);
@@ -44,7 +42,7 @@ public:
 private:
     int taille;
     EtatCouche etat;
-    //Vecteur<Forme>* formes;
+    Vecteur<Forme>* formes;
 
 };
 

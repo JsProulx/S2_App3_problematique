@@ -51,14 +51,20 @@ class Vecteur
     {
 		return get(index);
     }
-    void operator << (ostream& os)
+    friend ostream& operator << (ostream& os, const Vecteur<T>& v)
     {
-		afficher(os);
+		v.afficher(os);
+		return os;
     }
-    void operator >> (istream& is)
+    friend istream& operator>>(istream& is, Vecteur<T>& v)
     {
-        // a faire plus tard caliss
+        T valeur;
 
+        while (is >> valeur) {  // Lire tant qu'il y a des données
+            v.ajouter(valeur);
+        }
+
+        return is;
     }
     Vecteur& operator++()
     {
@@ -99,10 +105,6 @@ Vecteur<T>::Vecteur()
 template <typename T>
 Vecteur<T>::~Vecteur()
 {
-	/*for (int i = 0;i < taille;i++)
-        delete vecteur[i];
-
-    delete[] vecteur;*/
 }
 
 //vide le vecteur et conserve sa capacite

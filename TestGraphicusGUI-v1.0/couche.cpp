@@ -61,13 +61,10 @@ void Couche::afficher(ostream& os)
         break;
     }
 
-   if (taille==0)
-     cout<<"vide"<<endl;
-   else
-   {
-	   for (int i = 0; i < formes->getTaille(); i++)
+
+      for (int i = 0; i < formes->getTaille(); i++)
         formes->get(i)->afficher(os);
-   }
+
    
 }
 

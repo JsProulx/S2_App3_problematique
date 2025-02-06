@@ -17,6 +17,7 @@
 #include "carre.h"
 #include "cercle.h"
 #include "couche.h"
+#include <fstream>
 #include <sstream>
 
 class MonInterface : public GraphicusGUI
@@ -49,10 +50,15 @@ public:
 	void formeSuivante() override;
 	void formeDerniere() override;
 
+	void afficherInterface();
+
+	void setInformation();
+
 private:
 	Canevas* monCanevas;
 	ostringstream oss;
-
+	string contenuOss = "";
+	Informations info;
 };
 
 #endif // MONINTERFACE_H
