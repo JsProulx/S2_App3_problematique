@@ -8,8 +8,6 @@
 *                Université de Sherbrooke  
 ********/
 
-#include <random>
-#include <sstream>
 #include "monInterface.h"
 
 
@@ -34,16 +32,118 @@ void MonInterface::reinitialiserCanevas()
 
 bool MonInterface::ouvrirFichier(const char* nomFichier)
 {
+	string line;
+	//on reset le cannevas courant
+	reinitialiserCanevas();
+	//on ouvre le fichier
+	ifstream fichier(nomFichier);
+	if (!fichier.is_open())
+	{
+		cerr << "Erreur: impossible d'ouvrir le fichier " << nomFichier << endl;
+		return false;
+	}
+	//on prend le contenu du fichier et on le met dans le oss
+	while (getline(fichier, line))
+	{
+		istringstream iss(line);		//met la ligne dans un flux
+		char type;
+		iss >> type;				//prend le premier caractère de la ligne
+		switch (type) {
+		case 'L':
+			monCanevas->ajouterCouche();
+			break;
+		case 'R':
+		{
+			monCanevas->activerCouche(monCanevas->getTaille() - 1);
+			int x, y, largeur, hauteur;
+			//Lire chaque élément séparé par des espaces
+			iss >> x >> y >> largeur >> hauteur;
+			Forme* rectangle = new Rectangle(largeur, hauteur, x, y);
+			monCanevas->ajouterForme(rectangle);
+			break;
+		}
+		case 'K':
+		{
+			monCanevas->activerCouche(monCanevas->getTaille() - 1);
+			int x, y, cote;
+			iss >> x >> y >> cote;
+			Forme* carre = new Carre(cote, x, y);
+			monCanevas->ajouterForme(carre);
+			break;
+		}
+		case 'C':
+		{
+			monCanevas->activerCouche(monCanevas->getTaille() - 1);
+			int x, y, rayon;
+			iss >> x >> y >> rayon;
+			Forme* cercle = new Cercle(rayon, x, y);
+			monCanevas->ajouterForme(cercle);
+			break;
+		}
+		default:
+			break;
+
+		}
+		oss << line << endl;		//pour afficher a l'ecran
+	}
+	//on repasse dans le toutes les lignes pour activer/desactiver les couches
+	while (getline(fichier, line))
+	{
+		istringstream iss(line);
+		char type;
+		iss >> type;
+		switch (type) {
+		case 'L':
+		{
+			char etat;
+			iss >> etat;
+			if (etat == 'a')
+			{
+				monCanevas->activerCouche(monCanevas->getTaille() - 1);
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	}
+	dessiner(oss.str().c_str());
+	oss.str("");
+	//on ferme le fichier
+	fichier.close();
+
 	return true;
 }
 
 bool MonInterface::sauvegarderFichier(const char* nomFichier)
 {
+	ofstream fichier(nomFichier);
+	if (!fichier.is_open())
+	{
+		cerr << "Erreur: impossible d'ouvrir le fichier " << nomFichier << endl;
+		return false;
+	}
+	//affiche oss
+	cout << "contenu du oss" << endl << contenuOss;
+	//on met le contenu du oss dans le fichier
+	fichier << contenuOss;
+	fichier.close();
+
 	return true;
 }
 
 void MonInterface::modePileChange(bool mode)
 {
+	int memIndex;
+	for (int i = 0; i < monCanevas->getTaille(); i++)
+	{
+		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
+		{
+			memIndex = i;
+			cout << "index courrant: " << memIndex << endl;
+			break;
+		}
+	}
 	//l'ordre des couches est inverse si mode est vrai et est desinverser si mode est faux
 	if (mode)
 	{
@@ -62,6 +162,7 @@ void MonInterface::modePileChange(bool mode)
 		delete monCanevas;
 		monCanevas = canevasInverser;
 		
+		monCanevas->activerCouche(monCanevas->getTaille() - 1 - memIndex);
 	}
 	else
 	{
@@ -78,7 +179,12 @@ void MonInterface::modePileChange(bool mode)
 		}
 		delete monCanevas;
 		monCanevas = canevasNormal;
+
+		monCanevas->activerCouche(monCanevas->getTaille() -1 - memIndex);
 	}
+
+	
+
 	afficherInterface();
 }
 
@@ -307,6 +413,8 @@ void MonInterface::setInformation()
 
 	for (int i = 0; i < 20; i++)
 		info.etatCouche[i] = ' ';
+	
+	info.informationForme[0] = '\0';
 
 	info.nbFormesCanevas = 0;
 	info.aireCanevas = 0;
