@@ -197,8 +197,9 @@ void MonInterface::coucheTranslater(int deltaX, int deltaY)
 
 void MonInterface::ajouterCercle(int x, int y, int rayon)
 {
-	Cercle* cercle = new Cercle(rayon, x, y);
-	monCanevas->ajouterForme(cercle);
+	//Cercle* cercle = new Cercle(rayon, x, y);
+	//monCanevas->ajouterForme(cercle);
+	monCanevas -> ajouterForme(new Cercle(rayon, x, y));
 
 	for (int i = 0; i < monCanevas->getTaille(); i++)
 	{
@@ -215,14 +216,16 @@ void MonInterface::ajouterCercle(int x, int y, int rayon)
 
 void MonInterface::ajouterRectangle(int x, int y, int long_x, int long_y)
 {
-	Rectangle* rectangle = new Rectangle(long_x, long_y, x, y);
-	monCanevas->ajouterForme(rectangle);
+	//Rectangle* rectangle = new Rectangle(long_x, long_y, x, y);
+	//monCanevas->ajouterForme(rectangle);
+
+	monCanevas->ajouterForme(new Rectangle(long_x, long_y, x, y));
 
 	for (int i = 0; i < monCanevas->getTaille(); i++)
 	{
 		if (monCanevas->getCouche(i)->getEtat() == ACTIVE)
 		{
-			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille()-1);
+			monCanevas->getCouche(i)->setIndexCourrant(monCanevas->getCouche(i)->getTaille() - 1);
 			//cout << "index courrant: " << monCanevas->getCouche(i)->getIndexCourrant() << endl;
 			break;
 		}
@@ -233,8 +236,9 @@ void MonInterface::ajouterRectangle(int x, int y, int long_x, int long_y)
 
 void MonInterface::ajouterCarre(int x, int y, int cote)
 {
-	Carre* carre = new Carre(cote, x, y);
-	monCanevas->ajouterForme(carre);
+	//Carre* carre = new Carre(cote, x, y);
+	//monCanevas->ajouterForme(carre);
+	monCanevas->ajouterForme(new Carre(cote, x, y));
 
 	for (int i = 0; i < monCanevas->getTaille(); i++)
 	{
@@ -413,7 +417,7 @@ void MonInterface::setInformation()
 
 	for (int i = 0; i < 20; i++)
 		info.etatCouche[i] = ' ';
-	
+
 	info.informationForme[0] = '\0';
 
 	info.nbFormesCanevas = 0;
@@ -456,6 +460,7 @@ void MonInterface::setInformation()
 				info.aireForme = monCanevas->getCouche(i)->getForme(monCanevas->getCouche(i)->getIndexCourrant())->aire();
 			}
 		}
+		
 	}
 
 	setInformations(info);
