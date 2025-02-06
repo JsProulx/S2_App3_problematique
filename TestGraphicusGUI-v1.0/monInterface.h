@@ -1,7 +1,7 @@
 /********
 * Fichier: monInterface.h
-* Auteurs: C.-A. Brunet
-* Date: 10 janvier 2024
+* Auteurs: Simon Provencher et Jean-Sébastien Proulx
+* Date: 7 fevrier 2025
 * Description: La classe MonInterface teste l'interface usager GraphicusGUI.
 *
 * Copyright 2024 Département de génie électrique et génie informatique
@@ -16,7 +16,7 @@
 #include "rectangle.h"
 #include "carre.h"
 #include "cercle.h"
-#include "couche.h"
+
 #include <sstream>
 
 class MonInterface : public GraphicusGUI

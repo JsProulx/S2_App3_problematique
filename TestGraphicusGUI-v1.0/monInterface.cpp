@@ -1,8 +1,8 @@
 /********
 * Fichier: monInterface.cpp
-* Auteurs: C.-A. Brunet
-* Date: 10 janvier 2024
-* Description: Voir fichier d'entête pour informations.
+* Auteurs: Simon Provencher et Jean-Sébastien Proulx
+* Date: 7 fevrier 2025
+* Description: Teste l'interface usager GraphicusGUI.
 *
 * Copyright 2024 Département de génie électrique et génie informatique
 *                Université de Sherbrooke  
