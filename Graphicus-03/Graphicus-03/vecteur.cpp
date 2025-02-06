@@ -8,7 +8,7 @@
  *    vecteur.h. Ce fichier fait partie de la distribution de Graphicus.
 ********/
 
-#include "vecteur.h"
+/*#include "vecteur.h"
 
 //constructeur
 Vecteur::Vecteur()
@@ -131,8 +131,7 @@ void Vecteur::afficher(ostream& os)
     vecteur[i]->afficher(os);
   }
   
-}
-
+}*/
 
 
 

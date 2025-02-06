@@ -13,7 +13,7 @@
 #ifndef COUCHE_H
 #define COUCHE_H
 #include "forme.h"
-
+#include "vecteur.h"
 
 const int MAX_FORMES = 5;
 
@@ -21,25 +21,25 @@ enum EtatCouche { INITIALISEE, ACTIVE, INACTIVE };
 
 class Couche
 {
-   
-   public:
-     Couche();
-     bool ajoutForme(Forme*);
-     void afficher(ostream& os);
-     Forme* retirerForme(int index);
-     Forme* getForme(int index);
-     double aireTotale();
-     bool translater(int deltaX=0, int deltaY=0);
-     bool reinitialiser();
-     bool changerEtat(EtatCouche nouvelEtat);
-     int getTaille();
-     EtatCouche getEtat();
-     virtual ~Couche();
 
-   private:
-     int taille;
-     EtatCouche etat;
-     Forme* formes[MAX_FORMES];
+public:
+    Couche();
+    bool ajoutForme(Forme*);
+    void afficher(ostream& os);
+    Forme* retirerForme(int index);
+    Forme* getForme(int index);
+    double aireTotale();
+    bool translater(int deltaX = 0, int deltaY = 0);
+    bool reinitialiser();
+    bool changerEtat(EtatCouche nouvelEtat);
+    int getTaille();
+    EtatCouche getEtat();
+    virtual ~Couche();
+
+private:
+    int taille;
+    EtatCouche etat;
+    Vecteur<Forme>* formes;
 
 };
 

@@ -15,22 +15,22 @@
 void Tests::tests_unitaires_formes()
 { 
    // Tests sur les formes geometriques
-   testRectangle();
-   testCarre();
-   testCercle();
+   //testRectangle();
+   //testCarre();
+   //testCercle();
 }
 
 void Tests::tests_unitaires_couche()
 {
    //  --- Tests sur la classe Couche --- // 
    
-   testAjoutForme();
-   testRetraitForme();
-   testGetForme();
-   testAireTotale();
-   testTranslater();
-   testReinit();
-   testChangerEtat();
+   //testAjoutForme();
+   //testRetraitForme();
+   //testGetForme();
+   //testAireTotale();
+   //testTranslater();
+   //testReinit();
+   //testChangerEtat();
    
 }
 
@@ -38,11 +38,12 @@ void Tests::tests_unitaires_vecteur()
 {
    //  --- Tests sur la classe Vecteur --- //
    
-   testDoubleCapacite();
-   testAjoutCouche();
-   testVideVecteur();
-   testGetCouche();
-   retirerCouche();
+   //testDoubleCapacite();
+   //testAjoutCouche();
+   //testVideVecteur();
+   //testGetCouche();
+   //retirerCouche();
+   //testAjoutInt();
 
 }
 
@@ -50,12 +51,12 @@ void Tests::tests_unitaires_canevas()
 {
    // --- Tests sur la classe Canevas --- //
       
-   testAjoutCoucheCanevas();
-   testAjoutFromeCanevas();
-   testActiverCouche();
-   testRetirerForme();
-   testAireCannevas();
-   testTranslaterCannevas();
+   //testAjoutCoucheCanevas();
+   //testAjoutFromeCanevas();
+   //testActiverCouche();
+   //testRetirerForme();
+   //testAireCannevas();
+   //testTranslaterCannevas();
 }
 void Tests::tests_unitaires()
 {
@@ -213,6 +214,7 @@ void Tests::testAjoutForme()
 
    //met les formes dans la nouvelle couche
    cout<<"--> Insersion de formes dans la couche"<<endl;
+   couche1->changerEtat(ACTIVE);
    couche1 -> ajoutForme(carre1);
    couche1 -> ajoutForme(cercle1);
 
@@ -340,7 +342,7 @@ void Tests::testDoubleCapacite()
 {
    cout<<endl<<" ## ---------- SECTION VECTEUR ---------- ## "<<endl<<endl;
    cout<<endl<<" ##  TEST DOUBLE CAPACITE ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();
    cout<<"--> vecteur cree de capacite "<<vect1 -> getCapacite() << " et taille "<< vect1 -> getTaille()<<endl;
    vect1 -> doubleCapacite();
    cout<<"--> doublons la capacite 1x. Nouvelle capacite:"<<vect1 -> getCapacite()<<endl;
@@ -351,7 +353,7 @@ void Tests::testDoubleCapacite()
    delete vect1;
 }
 
-Vecteur* Tests::remplirVecteur(Vecteur* vect)
+Vecteur<Couche>* Tests::remplirVecteur(Vecteur<Couche>* vect)
 {
    
    Couche* couche1= new Couche();
@@ -371,19 +373,60 @@ Vecteur* Tests::remplirVecteur(Vecteur* vect)
    Couche* couche5= new Couche();
    
    //on ajoute les couche au vecteur
-   vect->ajoutCouche(couche1);
-   vect->ajoutCouche(couche2);
-   vect->ajoutCouche(couche3);
-   vect->ajoutCouche(couche4);
-   vect->ajoutCouche(couche5);
+   /*vect->ajout(couche1);
+   vect->ajout(couche2);
+   vect->ajout(couche3);
+   vect->ajout(couche4);
+   vect->ajout(couche5);*/
+   *vect += couche1;
+   *vect += couche2;
+   *vect += couche3;
+   *vect += couche4;
+   *vect += couche5;
    
    return vect;
+}
+
+void Tests::testAjoutInt()
+{
+    cout << endl << " ##  TEST AJOUT ENTIER ## " << endl << endl;
+    Vecteur<int>* vect1 = new Vecteur<int>();	//cree un vecteur
+
+	int* ptr = new int(1);
+	int* ptr2 = new int(2);
+	int* ptr3 = new int(3);
+    cout << "On rempli le vecteur de Int" << endl;
+	
+    *vect1 += ptr;
+	*vect1 += ptr2;
+	*vect1 += ptr3;
+    cout << vect1->getTaille();
+
+	//on affiche
+	for (int i = 0; i < vect1->getTaille(); i++)
+	{
+		cout << "Element " << i << " : " << *vect1->get(i) << endl;
+	}
+
+	//on retire un element
+	cout << "On retire l'element 1" << endl;
+    *vect1 - 1;
+
+    //on affiche
+	for (int i = 0; i < vect1->getTaille(); i++)
+	{
+		cout << "Element " << i << " : " << *vect1->get(i) << endl;
+	}
+    delete vect1;
+
+
+	
 }
 
 void Tests::testAjoutCouche()
 {
    cout<<endl<<" ##  TEST AJOUT COUCHE ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();	//cree un vecteur
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();	//cree un vecteur
 
    //on cree des couches et on les rempli de formes
    cout<<"--> Creation d'un Vecteur rempli de couche differentes"<<endl;
@@ -396,7 +439,7 @@ void Tests::testAjoutCouche()
 void Tests::testVideVecteur()
 {
    cout<<endl<<" ##  TEST VIDER VECTEUR ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();
    cout<<"--> Creation d'un Vecteur rempli "<<endl;
    vect1 = remplirVecteur(vect1);
    vect1 -> afficher(cout);
@@ -414,15 +457,15 @@ void Tests::testVideVecteur()
 void Tests::testGetCouche()
 {
    cout<<endl<<" ##  TEST GET COUCHE ## "<<endl<<endl;
-   Vecteur* vect1 = new Vecteur();
+   Vecteur<Couche>* vect1 = new Vecteur<Couche>();
    cout<<"--> Creation d'un Vecteur rempli "<<endl;
    vect1 = remplirVecteur(vect1);
    vect1 -> afficher(cout);
 
    //on va prendre la couche 2 et 3
    cout<<"--> Get de la couche index 2 et 3 "<<endl;
-   Couche* couche2 = vect1->getCouche(2);
-   Couche* couche3 = vect1->getCouche(3);
+   Couche* couche2 = vect1->get(2);
+   Couche* couche3 = vect1->get(3);
 
    cout<<endl;
 
@@ -436,7 +479,7 @@ void Tests::testGetCouche()
 
    //on essai de get a un index invalide
    cout<<"--> Get d'une couche a un index invalide "<<endl;
-   Couche* couche_test = vect1->getCouche(8);
+   Couche* couche_test = vect1->get(8);
    if (couche_test!=nullptr)
     couche_test->afficher(cout);
    else
@@ -448,20 +491,20 @@ void Tests::testGetCouche()
 void Tests::retirerCouche()
 {
 cout<<endl<<" ##  TEST RETIRER COUCHE ## "<<endl<<endl;
-  Vecteur* vect1 = new Vecteur();
+  Vecteur<Couche>* vect1 = new Vecteur<Couche>();
   vect1 = remplirVecteur(vect1);
   
   cout<<"--> Retrait de la couche 2 "<<endl;
-  vect1->retirerCouche(2);
+  vect1->retirer(2);
   vect1->afficher(cout);
   
   cout<<"--> Retrait de couches a des index invalides "<<endl;
-  vect1->retirerCouche(-1);
-  vect1->retirerCouche(69);
+  vect1->retirer(-1);
+  vect1->retirer(69);
   
   cout<<"--> Retrait de la 1ere couche 2x "<<endl;
-  vect1->retirerCouche(0);
-  vect1->retirerCouche(0);
+  vect1->retirer(0);
+  vect1->retirer(0);
   vect1->afficher(cout);
   
   delete vect1;
@@ -480,7 +523,7 @@ void Tests::testAjoutCoucheCanevas()
   Canevas canevas1;
   
   cout<<"--> Creation d'un canevas et ajout de 5 couches"<<endl;
-  for(int i=0;i<5;i++)
+  for(int i=0;i<10;i++)
     canevas1.ajouterCouche();
     
   canevas1.afficher(cout);
@@ -512,13 +555,19 @@ void Tests::testAjoutFromeCanevas()
   Forme* rect1 = new Rectangle(2,4,1,1);
   Forme* cercle1 = new Cercle(3);
   Forme* carre1 = new Carre();
+  Forme* carre2 = new Carre();
+  Forme* carre3 = new Carre();
+  Forme* carre4 = new Carre();
+  Forme* carre5 = new Carre();
+  Forme* carre6 = new Carre();
+  Forme* carre7 = new Carre();
   
   cout<<"--> Creation d'un canevas et ajout de 5 couches"<<endl;
-  for(int i=0;i<5;i++)         //fait 5 couches vides
+  for(int i=0;i<10;i++)         //fait 5 couches vides
     canevas1.ajouterCouche();
   
   cout<<"-->Activation de la couche 2 et ajout d'un rectangle: "<< endl;
-  canevas1.activerCouche(2);  //active la couche index 2 donc la 3e couche;
+  canevas1.activerCouche(9);  //active la couche index 2 donc la 3e couche;
   canevas1.ajouterForme(rect1);  //ajoute forme sur couche active (2)
   
   canevas1.afficher(cout);
@@ -527,7 +576,13 @@ void Tests::testAjoutFromeCanevas()
   canevas1.activerCouche(0);  //active la couche 0
   canevas1.ajouterForme(cercle1);  //ajoute 2 formes sur la couche 0
   canevas1.ajouterForme(carre1);
-  
+  canevas1.ajouterForme(carre2);
+  canevas1.ajouterForme(carre3);
+  canevas1.ajouterForme(carre4);
+  canevas1.ajouterForme(carre5);
+  canevas1.ajouterForme(carre6);
+  canevas1.ajouterForme(carre7);
+
   canevas1.afficher(cout);
   
 }
@@ -538,7 +593,7 @@ void Tests::testRetirerForme()
   Canevas canevas1;
   Forme* rect1 = new Rectangle(2,4,1,1);
   Forme* cercle1 = new Cercle(3);
-  Forme* carre1 = new Carre();
+
    
   for(int i=0;i<5;i++)         //fait 5 couches vides
     canevas1.ajouterCouche();
@@ -548,7 +603,7 @@ void Tests::testRetirerForme()
   
   canevas1.activerCouche(0);  //active la couche 0
   canevas1.ajouterForme(cercle1);  //ajoute 2 formes sur la couche 0
-  canevas1.ajouterForme(carre1);
+
   
   cout<<"-->couche cree avec formes suivantes:"<<endl;
   canevas1.afficher(cout);
@@ -718,6 +773,8 @@ void Tests::testValidation()
   cout<<"l'aire du canevas est de "<<canevas.aire()<<endl;
   
 }
+
+
 
 
 

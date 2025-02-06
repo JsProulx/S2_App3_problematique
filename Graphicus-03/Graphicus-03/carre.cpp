@@ -45,5 +45,5 @@ double Carre::aire()
 
 void Carre::afficher(ostream& os) 
 {
-    os << "Carre (x="<<ancrage.x<<", y="<< ancrage.y <<", c="<<largeur<<", aire="<<aire()<<")"<<endl;
+    os << "K "<<ancrage.x<<" "<< ancrage.y <<" "<<largeur<<endl;
 }

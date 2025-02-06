@@ -13,21 +13,19 @@
 //constructeur
 Couche::Couche()
 {
-  for (int i = 0; i < MAX_FORMES; i++) 	//pour creer une couche vide avec 5 ptrnull
-   {
-     formes[i] = nullptr;
-   }
-   taille = 0;
-   etat = INITIALISEE;
+    formes = new Vecteur<Forme>;
+    taille = 0;
+    etat = INITIALISEE;
  }
 //destructeur
 Couche::~Couche()
 {
-  for (int i = 0; i < MAX_FORMES; i++)
+  /*for (int i = 0; i < MAX_FORMES; i++)
      {
         delete formes[i];
         formes[i] = nullptr;
-     }
+     }*/
+	delete formes;
 }
 
 bool Couche::ajoutForme(Forme* forme)
@@ -37,12 +35,8 @@ bool Couche::ajoutForme(Forme* forme)
      cout<<"impossible de modifier, Couche n'est pas active"<<endl;
      return false; 
   }  
-  if(taille >= MAX_FORMES)
-  {
-    cout<<"impossible, couche remplie"<<endl;
-    return false; 
-  }
-  formes[taille] = forme;
+
+  *formes += forme;
   taille++;
   return true;
 }
@@ -50,26 +44,28 @@ bool Couche::ajoutForme(Forme* forme)
 
 void Couche::afficher(ostream& os)        
 {
-   cout<<"Etat: ";
+   cout<<"L ";
    
     switch (etat) 
     {
       case INITIALISEE: 
-        os << "Initialisée"<<endl; 
+        os << "i"<<endl; 
         break;
       case ACTIVE: 
-        os << "Active"<<endl; 
+        os << "a"<<endl; 
         break;
       case INACTIVE: 
-        os << "Inactive"<<endl; 
+        os << "x"<<endl; 
         break;
     }
 
    if (taille==0)
      cout<<"vide"<<endl;
-  
-   for (int i=0; i<taille; i++)
-      formes[i]->afficher(os);
+   else
+   {
+	   for (int i = 0; i < formes->getTaille(); i++)
+        formes->get(i)->afficher(os);
+   }
    
 }
 
@@ -86,8 +82,9 @@ Forme* Couche::retirerForme(int index)
      cout<<"index trop eleve"<<endl;
      return nullptr; 
    }
-   
-   Forme* forme_a_enlever = formes[index];    //pour ne pas perdre le pointeur a retouner
+
+   /*
+   Forme* forme_a_enlever = formes->get(index);    //pour ne pas perdre le pointeur a retouner
    
    if (forme_a_enlever == nullptr) 
    {
@@ -101,23 +98,24 @@ Forme* Couche::retirerForme(int index)
       Forme* buffer = formes[i+1];        //buffer
       formes[i+1] = nullptr;
       formes[i] = buffer;
-   }
+   }*/
+
+   
    if (taille>0)
      taille--;
      	
-   return forme_a_enlever;
+   return *formes-index;
 }
 
 //Methode qui retourne une forme existante a un index
 //Prend en parametre l'index dans la couche (de 0 a 4)
 Forme* Couche::getForme(int index)
 {
-  if(index>MAX_FORMES || index<0)	//mauvais index
+  if(index> formes->getTaille() || index<0)	//mauvais index
      return nullptr;
      
-  Forme* formeVoulue = formes[index];
-  
-  return formeVoulue;
+  //Forme* formeVoulue = formes[index];
+  return formes->get(index);
 }
 
 //Methode qui calcule l'aire totale d'une couche
@@ -126,10 +124,9 @@ double Couche::aireTotale()
 {
   double aireTotale=0;
   
-  for(int i=0;i<MAX_FORMES; i++)
+  for(int i=0;i<formes->getTaille(); i++)
   {
-    if(formes[i] != nullptr)
-      aireTotale += formes[i]->aire();
+	  aireTotale += formes->get(i)->aire();         //mmmphhfff
   }
   return aireTotale;
 }
@@ -144,10 +141,11 @@ bool Couche::translater(int deltaX, int deltaY)
       return false; 
    }  
    
-  for(int i=0;i<MAX_FORMES; i++)
+  for(int i=0;i<formes->getTaille(); i++)
   {
-    if(formes[i] != nullptr)
-      formes[i]->translater(deltaX,deltaY);
+    /*if(formes[i] != nullptr)
+      formes[i]->translater(deltaX,deltaY);*/
+	 formes->get(i)->translater(deltaX, deltaY);
   }
   return true;
 }
@@ -156,15 +154,16 @@ bool Couche::translater(int deltaX, int deltaY)
 //Retourne True si reussite
 bool Couche::reinitialiser()
 {
-   for (int i = 0; i < MAX_FORMES; i++) 
+   /*for (int i = 0; i < MAX_FORMES; i++)
    {
      delete formes[i];
      formes[i] = nullptr;
-   }
-   taille = 0;
-   etat = INITIALISEE;
+   }*/
+    formes->viderVecteur();
+    taille = 0;
+    etat = INITIALISEE;
    
-   return true;
+    return true;
 }
 
 bool Couche::changerEtat(EtatCouche nouvelEtat) 

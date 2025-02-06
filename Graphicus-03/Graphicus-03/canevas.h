@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include "vecteur.h"
+#include "couche.h"
 
 class Canevas
 {
@@ -38,7 +39,7 @@ public:
    void afficher(ostream & s);
 
 private:   
-   Vecteur* canevas;
+   Vecteur<Couche>* canevas;
    
 };
 
