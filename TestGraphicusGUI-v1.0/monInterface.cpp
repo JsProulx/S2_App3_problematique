@@ -408,6 +408,7 @@ void MonInterface::afficherInterface()
 	monCanevas->afficher(oss);
 	dessiner(oss.str().c_str());
 	cout << oss.str();
+	contenuOss = oss.str();
 	oss.str("");
 }
 
